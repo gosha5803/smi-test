@@ -1,1 +1,0 @@
-export const DATABASE_URL_KEY = 'DATABASE_URL';

@@ -5,3 +5,28 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum WorkFormat {
+  OFFICE
+  HYBRID
+  REMOTE
+}
+
+enum EmploymentType {
+  FULL_TIME
+  INTERNSHIP
+  ONE_TIME_TASK
+  PART_TIME
+}
+// TODO можно ли выносить объявления сущностей по подфайлам для призмы
+model Resume {
+  id             String         @id @default(uuid())
+  title          String
+  workFormat     WorkFormat
+  employmentType EmploymentType
+  phone          String
+  email          String
+  about          String?        
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}

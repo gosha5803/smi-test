@@ -1,5 +1,5 @@
 // TODO порядок испортов - линтер
-import { Info, Query, Resolver } from '@nestjs/graphql';
+import { Args, Info, Query, Resolver } from '@nestjs/graphql';
 import { ResumeService } from './resume.service';
 import { ResumeModel } from './model/resume.model';
 import type { GraphQLResolveInfo } from 'graphql';
@@ -21,4 +21,14 @@ export class ResumeResolver {
 
     return this.resumeService.getResumes(select);
   }
+
+  @Query(() => ResumeModel, { name: 'resume', nullable: true })
+  findOne(@Args('id') id: string, @Info() info: GraphQLResolveInfo) {
+    const select = this.selectBuilder.build(info);
+    return this.resumeService.getResume(id, select);
+  }
 }
+// TODO
+// Сделать создание резюме???
+// Сделать ФРОНТ с курсором.
+// Прочитать как переиспользовтаь модели на фронте

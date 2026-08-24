@@ -18,6 +18,39 @@ enum EmploymentType {
   ONE_TIME_TASK
   PART_TIME
 }
+
+model Skill {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  resumes   Resume[]
+}
+
+model Company {
+  id          String           @id @default(uuid())
+  name        String           @unique
+  description String?
+  experiences WorkExperience[]
+  createdAt   DateTime         @default(now())
+}
+
+model WorkExperience {
+  id          String   @id @default(uuid())
+  position    String
+  startDate   DateTime
+  endDate     DateTime?
+  description String?
+  resumeId    String
+  companyId   String
+  resume      Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([resumeId])
+  @@index([companyId])
+}
+
 // TODO можно ли выносить объявления сущностей по подфайлам для призмы
 model Resume {
   id             String         @id @default(uuid())
@@ -27,6 +60,12 @@ model Resume {
   phone          String
   email          String
   about          String?        
+  experiences    WorkExperience[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+  skills         Skill[]
 }
+
+// Добавить организацию, как место работы, подумать, как добавить туда поля, описание, работа с по, это будет отдельная таблица соединяющая пользака и орг.
+// TODO ручки для полчения массива скиллов, организаций.
+// Попробовать сделать Create и Update.

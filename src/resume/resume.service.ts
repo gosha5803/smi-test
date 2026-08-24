@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Resume } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+// TODO где хранить
+// @ts-ignore
 export const resumeSelectFields: Set<keyof Resume> = new Set([
   'id',
   'title',
@@ -12,6 +14,8 @@ export const resumeSelectFields: Set<keyof Resume> = new Set([
   'about',
   'createdAt',
   'updatedAt',
+  'skills',
+  'experiences',
 ]);
 
 type ResumeSelectParams = Partial<Record<keyof Resume, true>>;

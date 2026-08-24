@@ -1,5 +1,7 @@
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { EmploymentType, WorkFormat } from '@prisma/client';
+import { WorkExperienceModel } from './work-experience.model';
+import { SkillModel } from './skill.model';
 
 registerEnumType(WorkFormat, { name: 'WorkFormat' });
 registerEnumType(EmploymentType, { name: 'EmploymentType' });
@@ -14,7 +16,7 @@ export class ResumeModel {
 
   @Field(() => WorkFormat)
   workFormat!: WorkFormat;
-  // TODO TS
+
   @Field(() => EmploymentType)
   employmentType!: EmploymentType;
 
@@ -23,4 +25,10 @@ export class ResumeModel {
 
   @Field()
   email!: string;
+
+  @Field(() => [SkillModel], { nullable: true, defaultValue: [] })
+  skills?: SkillModel[];
+
+  @Field(() => [WorkExperienceModel], { nullable: true })
+  experiences?: WorkExperienceModel[];
 }

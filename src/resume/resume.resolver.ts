@@ -16,10 +16,13 @@ export class ResumeResolver {
   ) {}
   // TODO тип возвращаемый
   @Query(() => [ResumeModel], { name: 'resumes' })
-  getResumes(@Info() info: GraphQLResolveInfo) {
+  getResumes(
+    @Info() info: GraphQLResolveInfo,
+    @Args('title', { nullable: true }) title?: string,
+  ) {
     const select = this.selectBuilder.build(info);
 
-    return this.resumeService.getResumes(select);
+    return this.resumeService.getResumes(select, title);
   }
 
   @Query(() => ResumeModel, { name: 'resume', nullable: true })

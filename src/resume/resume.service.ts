@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Resume } from '@prisma/client';
+import { Prisma, Resume } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 // TODO синкануть с билдером select
 type ResumeSelectParams = Partial<Record<keyof Resume, true>>;
@@ -8,9 +8,19 @@ type ResumeSelectParams = Partial<Record<keyof Resume, true>>;
 export class ResumeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getResumes(select: ResumeSelectParams): Promise<Partial<Resume>[]> {
+  async getResumes(
+    select: ResumeSelectParams,
+    title?: string,
+  ): Promise<Partial<Resume>[]> {
+    const where: Prisma.ResumeWhereInput = title
+      ? {
+          title: { contains: title },
+        }
+      : {};
+
     return await this.prisma.resume.findMany({
       select,
+      where,
     });
   }
 

@@ -14,7 +14,7 @@ export class ResumeService {
   ): Promise<Partial<Resume>[]> {
     const where: Prisma.ResumeWhereInput = title
       ? {
-          title: { contains: title },
+          title: { contains: title, mode: 'insensitive' },
         }
       : {};
 

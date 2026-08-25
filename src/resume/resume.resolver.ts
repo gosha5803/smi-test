@@ -31,7 +31,3 @@ export class ResumeResolver {
     return this.resumeService.getResume(id, select);
   }
 }
-// TODO
-// Сделать создание резюме???
-// Сделать ФРОНТ с курсором.
-// Прочитать как переиспользовтаь модели на фронте

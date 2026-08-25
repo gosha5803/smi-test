@@ -24,6 +24,9 @@ export class ResumeModel {
   phone!: string;
 
   @Field()
+  about!: string;
+
+  @Field()
   email!: string;
 
   @Field(() => [SkillModel], { nullable: true, defaultValue: [] })

@@ -7,10 +7,3 @@ import { PrismaService } from './prisma.service';
   exports: [PrismaService],
 })
 export class PrismaModule {}
-// TODO Сделать запрос на получение краткой инфы через GRAPHQL и закомититься
-
-// Далее усложнить резюме навыками и т.п.
-// Сделат детальное чтение
-
-// Сделать поиск, может фильтры
-// Сделать создание резюме

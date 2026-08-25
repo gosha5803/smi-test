@@ -13,11 +13,14 @@ async function bootstrap() {
   const host = configService.get<string>(APP_HOST, '0.0.0.0');
   const appPort = configService.get<number>(APP_PORT);
 
-  app.enableCors({
-    origin: frontendUrl,
-    credentials: true,
-  });
+  if (frontendUrl) {
+    app.enableCors({
+      origin: frontendUrl,
+      credentials: true,
+    });
+  }
 
+  console.log(`Port: ${APP_PORT}, Host: ${APP_HOST}`);
   await app.listen(appPort ?? 3000, host);
 }
 bootstrap();

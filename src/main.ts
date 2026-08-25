@@ -20,7 +20,7 @@ async function bootstrap() {
     });
   }
 
-  console.log(`Port: ${APP_PORT}, Host: ${APP_HOST}`);
+  console.log(`Port: ${appPort}, Host: ${host}`);
   await app.listen(appPort ?? 3000, host);
 }
 bootstrap();

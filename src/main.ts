@@ -11,7 +11,8 @@ async function bootstrap() {
   const frontendUrl = configService.get<string>(FRONTEND_URL);
 
   const host = configService.get<string>(APP_HOST, '0.0.0.0');
-  const appPort = configService.get<number>(APP_PORT);
+  const appPort =
+    process.env.PORT || configService.get<number>(APP_PORT) || 3000;
 
   if (frontendUrl) {
     app.enableCors({

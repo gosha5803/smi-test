@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // Используем schemas (массив), а не schema
   schemas  = ["railway"] 
 }
 
@@ -12,6 +11,8 @@ enum WorkFormat {
   OFFICE
   HYBRID
   REMOTE
+  
+  @@schema("railway") 
 }
 
 enum EmploymentType {
@@ -19,6 +20,8 @@ enum EmploymentType {
   INTERNSHIP
   ONE_TIME_TASK
   PART_TIME
+  
+  @@schema("railway") 
 }
 
 model Skill {

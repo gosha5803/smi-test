@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schema   = "railway" 
+  // Используем schemas (массив), а не schema
+  schemas  = ["railway"] 
 }
 
 enum WorkFormat {
@@ -25,6 +26,8 @@ model Skill {
   name      String   @unique
   createdAt DateTime @default(now())
   resumes   Resume[]
+
+  @@schema("railway")
 }
 
 model Company {
@@ -33,6 +36,8 @@ model Company {
   description String?
   experiences WorkExperience[]
   createdAt   DateTime         @default(now())
+
+  @@schema("railway")
 }
 
 model WorkExperience {
@@ -50,9 +55,9 @@ model WorkExperience {
 
   @@index([resumeId])
   @@index([companyId])
+  @@schema("railway")
 }
 
-// TODO можно ли выносить объявления сущностей по подфайлам для призмы
 model Resume {
   id             String         @id @default(uuid())
   title          String
@@ -65,8 +70,6 @@ model Resume {
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   skills         Skill[]
-}
 
-// Добавить организацию, как место работы, подумать, как добавить туда поля, описание, работа с по, это будет отдельная таблица соединяющая пользака и орг.
-// TODO ручки для полчения массива скиллов, организаций.
-// Попробовать сделать Create и Update.
+  @@schema("railway")
+}
